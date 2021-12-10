@@ -81,7 +81,7 @@ const posts = [
         profilePic: 20,
         date:
         {
-            year: 2021,
+            year: 2019,
             month: 2,
             day: 3
         },
@@ -108,8 +108,13 @@ function getMonthPost(dateObj) {
     } else {
         const yearToMonth = (today.getFullYear() - datePost.getFullYear())*12;
         const month = today.getMonth() - datePost.getMonth(); 
+        const months = yearToMonth + month;
         
-        return yearToMonth + month + ' mesi fa';
+        if (months > 12) {
+            return datePost.toLocaleDateString('it-IT');
+        } else {
+            return months + ' mesi fa';
+        }
     }
 
 }
