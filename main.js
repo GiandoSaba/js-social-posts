@@ -10,4 +10,92 @@
 // 2. Gestire l’assenza dell’immagine profilo con un elemento di fallback che contiene le iniziali dell’utente(es.Luca Formicola > LF).
 // 3. Al click su un pulsante “Mi Piace” di un post, incrementare il contatore di like al post e cambiare colore al testo del bottone.
 
-console.log('ciao');
+const posts = [
+    
+    {
+        userName: 'Phil Mangione',
+        profilePic: 15,
+        date: '4 mesi fa',
+        text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
+        img: 171,
+        likes: 80
+    },
+    {
+        userName: 'Sofia Perlari',
+        profilePic: 10,
+        date: '5 mesi fa',
+        text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
+        img: 160,
+        likes: 90
+    },
+    {
+        userName: 'Carlo Verdone',
+        profilePic: 80,
+        date: '7 mesi fa',
+        text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
+        img: 1020,
+        likes: 200
+    },
+    {
+        userName: 'Sabrina Ferilli',
+        profilePic: 79,
+        date: '8 mesi fa',
+        text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
+        img: 181,
+        likes: 20
+    }
+]
+
+function createPost(obj) {
+    const template  = `
+        <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon">
+                            <img class="profile-pic" src="https://unsplash.it/300/300?image=${obj.profilePic}" alt="${obj.userName}">                    
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${obj.userName}</div>
+                            <div class="post-meta__time">${obj.date}</div>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="post__text">${obj.text}</div>
+                <div class="post__image">
+                    <img src="https://unsplash.it/600/300?image=${obj.img}" alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" href="#" data-postid="1">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-1" class="js-likes-counter">${obj.likes}</b> persone
+                        </div>
+                    </div> 
+                </div>            
+            </div>`;
+    return template;
+}
+
+const container = document.getElementById('container');
+const likeButtons = document.querySelectorAll('.js-like-button');
+
+for (let i = 0; i < posts.length; i++) {
+    container.innerHTML += createPost(posts[i]);
+}
+
+for (let j = 0; j < likeButtons.length; j++) {
+    const likeButton = likeButtons[j];
+    console.log(likeButton);
+    
+}
+
+
+
+
+
+
