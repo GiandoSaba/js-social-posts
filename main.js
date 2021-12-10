@@ -38,7 +38,7 @@ const posts = [
     },
     {
         userName: 'Sabrina Ferilli',
-        profilePic: 79,
+        profilePic: '',
         date: '8 mesi fa',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: 181,
@@ -46,13 +46,27 @@ const posts = [
     }
 ]
 
+function getInitials(userName) {
+    const fullName = userName.split(' ');
+    const initials = fullName.shift().charAt(0) + fullName.pop().charAt(0);
+    return initials.toUpperCase();
+}
+
 function createPost(obj) {
+    
+    let profilePic = `<img class="profile-pic" src="https://unsplash.it/300/300?image=${obj.profilePic}" alt="${obj.userName}">`
+    if(obj.profilePic == ''){
+        const initials = getInitials(obj.userName);
+        profilePic = `<div class="profile-pic-default"><span>${initials}</span></div>`
+    }
+
+
     const template  = `
         <div class="post">
                 <div class="post__header">
                     <div class="post-meta">                    
                         <div class="post-meta__icon">
-                            <img class="profile-pic" src="https://unsplash.it/300/300?image=${obj.profilePic}" alt="${obj.userName}">                    
+                            ${profilePic}                  
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${obj.userName}</div>
