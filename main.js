@@ -96,11 +96,14 @@ for (let j = 0; j < footerPosts.length; j++) {
     let likes = likeCounterContainer.innerText;
 
     let clicked = false;
+    const backgroundStyle = likeButton.style.backgroundColor;
     likeButton.addEventListener('click', function() {
         if(!clicked){
+            this.style.backgroundColor = 'red';
             likes++;
             clicked = true;
         } else {
+            this.style.backgroundColor = backgroundStyle;
             likes--;
             clicked = false;
         }
