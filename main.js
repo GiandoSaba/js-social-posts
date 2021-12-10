@@ -15,7 +15,12 @@ const posts = [
     {
         userName: 'Phil Mangione',
         profilePic: 15,
-        date: '4 mesi fa',
+        date: 
+        {
+            year: 2021,
+            month: 12,
+            day: 10
+        },
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: 171,
         likes: 80
@@ -23,7 +28,12 @@ const posts = [
     {
         userName: 'Sofia Perlari',
         profilePic: 10,
-        date: '5 mesi fa',
+        date: 
+        {
+            year: 2021,
+            month: 7,
+            day: 13
+        },
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: 160,
         likes: 90
@@ -31,15 +41,50 @@ const posts = [
     {
         userName: 'Carlo Verdone',
         profilePic: 80,
-        date: '7 mesi fa',
+        date:
+        {
+            year: 2021,
+            month: 5,
+            day: 11
+        },
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: 1020,
         likes: 200
     },
     {
-        userName: 'Sabrina Ferilli',
+        userName: 'Giando Sabato',
+        profilePic: 180,
+        date:
+        {
+            year: 2020,
+            month: 12,
+            day: 25
+        },
+        text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
+        likes: 10000
+    },
+    {
+        userName: 'Torquato Tasso',
         profilePic: '',
-        date: '8 mesi fa',
+        date:
+        {
+            year: 2021,
+            month: 01,
+            day: 01
+        },
+        text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
+        img: 200,
+        likes: 2
+    },
+    {
+        userName: 'Sabrina Ferilli',
+        profilePic: 20,
+        date:
+        {
+            year: 2021,
+            month: 2,
+            day: 3
+        },
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: 181,
         likes: 20
@@ -52,6 +97,24 @@ function getInitials(userName) {
     return initials.toUpperCase();
 }
 
+function getMonthPost(dateObj) {
+    const today = new Date();
+    const datePost = new Date(dateObj.year, dateObj.month, dateObj.day);
+    
+    if (
+        today.getDate() == datePost.getDate()
+        ) {
+        return 'Oggi';
+    } else {
+        const yearToMonth = (today.getFullYear() - datePost.getFullYear())*12;
+        const month = today.getMonth() - datePost.getMonth(); 
+        
+        return yearToMonth + month + ' mesi fa';
+    }
+
+}
+
+
 function createPost(obj) {
     
     let profilePic = `<img class="profile-pic" src="https://unsplash.it/300/300?image=${obj.profilePic}" alt="${obj.userName}">`
@@ -60,7 +123,8 @@ function createPost(obj) {
         profilePic = `<div class="profile-pic-default"><span>${initials}</span></div>`
     }
 
-
+    const monthPost = getMonthPost(obj.date);
+    
     const template  = `
         <div class="post">
                 <div class="post__header">
@@ -70,7 +134,7 @@ function createPost(obj) {
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${obj.userName}</div>
-                            <div class="post-meta__time">${obj.date}</div>
+                            <div class="post-meta__time">${monthPost}</div>
                         </div>                    
                     </div>
                 </div>
@@ -111,7 +175,8 @@ for (let j = 0; j < footerPosts.length; j++) {
 
     let clicked = false;
     const backgroundStyle = likeButton.style.backgroundColor;
-    likeButton.addEventListener('click', function() {
+    likeButton.addEventListener('click', function(event) {
+        event.preventDefault();
         if(!clicked){
             this.style.backgroundColor = 'red';
             likes++;
