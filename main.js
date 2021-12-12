@@ -179,15 +179,14 @@ for (let j = 0; j < footerPosts.length; j++) {
     let likes = likeCounterContainer.innerText;
 
     let clicked = false;
-    const backgroundStyle = likeButton.style.backgroundColor;
     likeButton.addEventListener('click', function(event) {
         event.preventDefault();
         if(!clicked){
-            this.style.backgroundColor = 'red';
+            this.classList.add('like-button--liked');
             likes++;
             clicked = true;
         } else {
-            this.style.backgroundColor = backgroundStyle;
+            this.classList.remove('like-button--liked');
             likes--;
             clicked = false;
         }
